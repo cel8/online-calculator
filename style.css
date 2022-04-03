@@ -74,7 +74,7 @@ a {
 
 .clean {
   display: grid;
-  grid-template-columns: 50% 50%;
+  grid-template-columns: 37% 37.5% 25.5%;
   gap: 2px;
   overflow: hidden;
 }
@@ -84,6 +84,10 @@ a {
 }
 
 .delete-btn {
+  height: 60px;
+}
+
+.sign-btn {
   height: 60px;
 }
 
