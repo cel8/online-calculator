@@ -38,8 +38,10 @@ class Calculator {
   constructor() {
     this.operandLeft = '';
     this.operandRight = '';
+    this.lastOperandRight = '';
     this.reset = false;
     this.operation = operator.nop;
+    this.lastOperation = operator.nop;
   }
   operate() {
     let exit = true;
@@ -109,6 +111,7 @@ class Calculator {
     setCurrentOperation(text);
   }
   appendOperand(text) {
+    let operand = '';
     if(text === '.') {
       if(this.checkDot()) {
         return;
@@ -116,31 +119,22 @@ class Calculator {
     }
     if(true === this.reset) {
       this.cleanOperation();
+      this.resetChainEqualOperation();
       this.reset = false;
     }
-    if(this.operation === operator.nop) {
-      if(this.operandLeft.length + 1 >= MAX_OPERAND_LEN)
-        return;
-      if(this.operandLeft === '0') {
-        if(text !== '.') this.operandLeft = '';
-      }
-      if((text === '.') && (this.operandLeft === '')) {
-        this.operandLeft = '0';
-      } 
-      this.operandLeft += text;
-      setCurrentOperation(this.operandLeft);
-    } else {
-      if(this.operandRight.length + 1 >= MAX_OPERAND_LEN)
-        return;
-      if(this.operandRight === '0') {
-        if(text !== '.') this.operandRight = '';
-      }
-      if((text === '.') && (this.operandRight === '')) {
-        this.operandRight = '0';
-      } 
-      this.operandRight += text;
-      setCurrentOperation(this.operandRight);
+    operand = this.getOperand();
+    if(operand.length + 1 >= MAX_OPERAND_LEN) return;
+
+    if(operand === '0') {
+      if(text !== '.') operand = '';
     }
+    if((text === '.') && (operand === '')) {
+      operand = '0';
+    }
+
+    operand += text;
+    this.setOperand(operand);
+    setCurrentOperation(operand);
   }
   getOperand() {
     return (this.operation === operator.nop ? this.operandLeft : this.operandRight);
@@ -152,16 +146,39 @@ class Calculator {
       this.operandRight = text;
     }
   }
+  executeChainEqualOperation() {
+    this.operation = this.lastOperation;
+    this.operandRight = this.lastOperandRight;
+    let operationStr = getOperatorStr(this.operation);
+    setLastOperation(`${this.operandLeft} ${operationStr} ${this.operandRight} =`);
+    this.operate();
+  }
+  setChainEqualOperation() {
+    this.lastOperation = this.operation;
+    this.lastOperandRight = this.operandRight;
+  }
+  resetChainEqualOperation() {
+    this.lastOperation = operator.nop;
+    this.lastOperandRight = '';
+  }
   setOperation(text) {
     if(this.operandRight === '') {
-      if((text !== '=') && (this.operandLeft !== '')) {
-        this.reset = false;
-        this.operation = getOperator(text);
-        setLastOperation(`${this.operandLeft} ${text}`);
+      if(this.operandLeft !== '') {
+        if(text !== '=') {
+          this.reset = false;
+          this.operation = getOperator(text);
+          setLastOperation(`${this.operandLeft} ${text}`);
+        } else {
+          if((this.lastOperation !== '') && (this.lastOperation !== operator.nop)) {
+            this.executeChainEqualOperation();
+            this.reset = true;
+          }
+        }
       }
     } else {
       if(text === '=') {
         setLastOperation(`${lastOperationOnScreen.textContent} ${this.operandRight} =`);
+        this.setChainEqualOperation();
         this.operate();
         this.reset = true;
       } else {
@@ -217,6 +234,15 @@ function getOperator(text) {
   else if(text === '-') exit = operator.sub;
   else if(text === '×') exit = operator.mul;
   else if(text === '÷') exit = operator.div;
+  return exit;
+}
+
+function getOperatorStr(e) {
+  let exit = '';
+  if(e === operator.sum) exit = '+';
+  else if(e === operator.sub) exit = '-';
+  else if(e === operator.mul) exit = '×';
+  else if(e === operator.div) exit = '÷';
   return exit;
 }
 
