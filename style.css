@@ -36,12 +36,17 @@ a {
   grid-template-rows: repeat(1, 1fr);
   min-height: 0;
   overflow: hidden;
+  padding: 10px;
+  border:rgb(128, 128, 128) solid;
+  border-radius: 5px;
   gap: 2px;
 }
 
 .operand {
   display: grid;
   grid-template-rows: 25% 45%;
+  border:rgb(128, 128, 128) solid;
+  border-radius: 5px;
   overflow: hidden;
 }
 
@@ -81,14 +86,28 @@ a {
 
 .clear-btn {
   height: 60px;
+  font-size: 18px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-weight: bold;
 }
 
 .delete-btn {
   height: 60px;
+  font-size: 18px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
+  font-weight: bold;
 }
 
 .sign-btn {
   height: 60px;
+  font-size: 18px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
 
 .operation-btn {
@@ -96,4 +115,8 @@ a {
   height: 30px;
   margin: 0px;
   padding: 50px;
+  font-size: 18px;
+  justify-content: center;
+  align-items: center;
+  display: flex;
 }
