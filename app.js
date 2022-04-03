@@ -150,7 +150,7 @@ class Calculator {
     this.operation = this.lastOperation;
     this.operandRight = this.lastOperandRight;
     let operationStr = getOperatorStr(this.operation);
-    setLastOperation(`${this.operandLeft} ${operationStr} ${this.operandRight} =`);
+    setLastOperation(`${+this.operandLeft} ${operationStr} ${+this.operandRight} =`);
     this.operate();
   }
   setChainEqualOperation() {
@@ -167,7 +167,7 @@ class Calculator {
         if(text !== '=') {
           this.reset = false;
           this.operation = getOperator(text);
-          setLastOperation(`${this.operandLeft} ${text}`);
+          setLastOperation(`${+this.operandLeft} ${text}`);
         } else {
           if((this.lastOperation !== '') && (this.lastOperation !== operator.nop)) {
             this.executeChainEqualOperation();
@@ -177,14 +177,14 @@ class Calculator {
       }
     } else {
       if(text === '=') {
-        setLastOperation(`${lastOperationOnScreen.textContent} ${this.operandRight} =`);
+        setLastOperation(`${lastOperationOnScreen.textContent} ${+this.operandRight} =`);
         this.setChainEqualOperation();
         this.operate();
         this.reset = true;
       } else {
         this.reset = false;
         this.operate();
-        setLastOperation(`${this.operandLeft} ${text}`);
+        setLastOperation(`${+this.operandLeft} ${text}`);
         this.operation = getOperator(text);
       }
     }
