@@ -251,9 +251,12 @@ function handleKeyboard(event) {
   else if((event.key === '+') || (event.key === '/') || (event.key === '-') ||
           (event.key === 'Enter') || (event.key === '=') || (event.key === '*')) {
             calculator.setOperation(convertOperator(event.key));
+            if(event.key === 'Enter') event.preventDefault();
           }
   else if(event.key === 'Backspace') calculator.trimOperand();
+  else if((event.key === 's') || (event.key === 'S')) calculator.changeSign();
   else if((event.key === 'Delete') || (event.key === 'Escape')) calculator.cleanUp();
+  else if(event.key === 'Tab') event.preventDefault();
 }
 
 function setCurrentOperation(text = '', unit = 'px') {

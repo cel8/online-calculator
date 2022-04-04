@@ -39,13 +39,14 @@ a {
   padding: 10px;
   border:rgb(128, 128, 128) solid;
   border-radius: 5px;
+  background-color: rgb(197, 197, 197);
   gap: 2px;
 }
 
 .operand {
   display: grid;
-  grid-template-rows: 25% 45%;
-  border:rgb(128, 128, 128) solid;
+  grid-template-rows: 35% 65%;
+  border:rgb(148, 148, 148) solid;
   border-radius: 5px;
   overflow: hidden;
 }
@@ -65,7 +66,9 @@ a {
   background-color: white;
   color: black;
   border:rgb(0, 0, 0) solid;
-  border-radius: 5px;
+  border-width: 2px;
+  border-radius: 3px;
+  margin: 1px;
   padding: 5px;
 }
 
@@ -79,7 +82,7 @@ a {
 
 .clean {
   display: grid;
-  grid-template-columns: 37% 37.5% 25.5%;
+  grid-template-columns: 37% 37.5% 24.5%;
   gap: 2px;
   overflow: hidden;
 }
@@ -119,4 +122,8 @@ a {
   justify-content: center;
   align-items: center;
   display: flex;
+}
+
+button:focus {
+  outline-width: 0;
 }
