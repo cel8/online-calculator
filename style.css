@@ -32,10 +32,11 @@ a {
 }
 
 .calculator {
+  align-self: center;
   display: grid;
   grid-template-rows: repeat(1, 1fr);
-  min-height: 0;
   overflow: hidden;
+  min-height: 0;
   padding: 10px;
   border:rgb(128, 128, 128) solid;
   border-radius: 5px;
@@ -48,7 +49,7 @@ a {
   grid-template-rows: 35% 65%;
   border:rgb(148, 148, 148) solid;
   border-radius: 5px;
-  overflow: hidden;
+  min-height: 150px;
 }
 
 .operation {
@@ -84,7 +85,6 @@ a {
   display: grid;
   grid-template-columns: 37% 37.5% 24.5%;
   gap: 2px;
-  overflow: hidden;
 }
 
 .clear-btn {
